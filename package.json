@@ -1,0 +1,22 @@
+{
+  "name": "cordova-plugin-google-services",
+  "version": "0.1.0",
+  "description": "A Cordova plugin for Google Services.",
+  "author": "Joshua McFarland",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcfarljw/cordova-plugin-google-services"
+  },
+  "keywords": [
+    "cordova",
+    "google",
+    "services"
+  ],
+  "cordova": {
+    "id": "cordova-plugin-google-services",
+    "platforms": [
+      "android"
+    ]
+  }
+}
