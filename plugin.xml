@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="com-jernung-plugins-google-services"
+        id="com-jernung-plugin-google-services"
         version="0.1.0">
 
   <name>Google Services Plugin</name>
