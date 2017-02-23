@@ -1,4 +1,5 @@
 var filesystem = require('fs');
+var path = require('path');
 
 /**
  * Gets the index of a line of text containing a specific value.
@@ -36,15 +37,17 @@ function insertLineAt(content, index, value) {
 }
 
 module.exports = function(context) {
-  var cordovaDirectory = context.opts.projectRoot;
-  var pluginDirectory = context.opts.plugin.dir;
-  var buildGradleSource = cordovaDirectory + '/platforms/android/build.gradle';
-  var googleServicesSource = cordovaDirectory + '/google-services.json';
-  var googleServicesTarget = cordovaDirectory + '/platforms/android/google-services.json';
+  var cordovaDirectory = path.resolve(context.opts.projectRoot);
+  var buildGradleSource = path.resolve(cordovaDirectory, './platforms/android/build.gradle');
+  var googleServicesSource1 = path.resolve(cordovaDirectory, './google-services.json');
+  var googleServicesSource2 = path.resolve(cordovaDirectory, '../', './google-services.json');
+  var googleServicesTarget = path.resolve(cordovaDirectory, './platforms/android/google-services.json');
 
   // copy google-services to root src directory
-  if (filesystem.existsSync(googleServicesSource)) {
-    filesystem.writeFileSync(googleServicesTarget, filesystem.readFileSync(googleServicesSource));
+  if (filesystem.existsSync(googleServicesSource1)) {
+    filesystem.writeFileSync(googleServicesTarget, filesystem.readFileSync(googleServicesSource1));
+  } else if (filesystem.existsSync(googleServicesSource2)) {
+    filesystem.writeFileSync(googleServicesTarget, filesystem.readFileSync(googleServicesSource2));
   } else {
     filesystem.writeFileSync(googleServicesTarget, '{}');
   }
