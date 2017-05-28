@@ -56,7 +56,7 @@ module.exports = function(context) {
   if (filesystem.existsSync(buildGradleSource)) {
     var buildGradeFile = filesystem.readFileSync(buildGradleSource);
     var index =  getLineIndex(buildGradeFile, 'com.android.tools.build:gradle');
-    var content = insertLineAt(buildGradeFile, index + 1, "\t\t\t\tclasspath 'com.google.gms:google-services:3.0.0'");
+    var content = insertLineAt(buildGradeFile, index + 1, "\t\t\t\tclasspath 'com.google.gms:google-services:3.1.0'");
 
     // insert google-services as buildscript dependency
     if (getLineIndex(buildGradeFile, 'com.google.gms:google-services:3.0.0') === -1) {
