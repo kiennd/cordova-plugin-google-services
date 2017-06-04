@@ -7,7 +7,7 @@ var path = require('path');
  * @param {string} value
  * @returns {number}
  */
-function getLineIndex(content, value) {
+function getLineIndex (content, value) {
   var lines = content.toString().split('\n');
 
   for (var i = 0, length = lines.length; i < length; i++) {
@@ -28,7 +28,7 @@ function getLineIndex(content, value) {
  * @param {string} value
  * @returns {string}
  */
-function insertLineAt(content, index, value) {
+function insertLineAt (content, index, value) {
   var lines = content.toString().split('\n');
 
   lines.splice(index, 0, value);
@@ -36,7 +36,7 @@ function insertLineAt(content, index, value) {
   return lines.join('\n');
 }
 
-module.exports = function(context) {
+module.exports = function (context) {
   var cordovaDirectory = path.resolve(context.opts.projectRoot);
   var buildGradleSource = path.resolve(cordovaDirectory, './platforms/android/build.gradle');
   var googleServicesSource1 = path.resolve(cordovaDirectory, './google-services.json');
