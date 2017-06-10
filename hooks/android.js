@@ -59,7 +59,7 @@ module.exports = function (context) {
     var content = insertLineAt(buildGradeFile, index + 1, "\t\t\t\tclasspath 'com.google.gms:google-services:3.1.0'");
 
     // insert google-services as buildscript dependency
-    if (getLineIndex(buildGradeFile, 'com.google.gms:google-services:3.0.0') === -1) {
+    if (getLineIndex(buildGradeFile, 'com.google.gms:google-services:3.1.0') === -1) {
       filesystem.writeFileSync(buildGradleSource, content);
     }
 
