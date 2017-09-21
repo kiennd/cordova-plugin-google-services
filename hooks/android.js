@@ -1,5 +1,14 @@
-var filesystem = require('fs');
-var path = require('path');
+const filesystem = require('fs');
+const path = require('path');
+
+/**
+ * Gets the number count of lines of text
+ * @param {string} content
+ * @returns {number}
+ */
+function getLineCount (content) {
+  return content.toString().split('\n').length;
+}
 
 /**
  * Gets the index of a line of text containing a specific value.
@@ -8,9 +17,9 @@ var path = require('path');
  * @returns {number}
  */
 function getLineIndex (content, value) {
-  var lines = content.toString().split('\n');
+  const lines = content.toString().split('\n');
 
-  for (var i = 0, length = lines.length; i < length; i++) {
+  for (let i = 0, length = lines.length; i < length; i++) {
     if (lines[i].indexOf(value) === -1) {
       continue;
     }
@@ -29,7 +38,7 @@ function getLineIndex (content, value) {
  * @returns {string}
  */
 function insertLineAt (content, index, value) {
-  var lines = content.toString().split('\n');
+  const lines = content.toString().split('\n');
 
   lines.splice(index, 0, value);
 
@@ -37,11 +46,11 @@ function insertLineAt (content, index, value) {
 }
 
 module.exports = function (context) {
-  var cordovaDirectory = path.resolve(context.opts.projectRoot);
-  var buildGradleSource = path.resolve(cordovaDirectory, './platforms/android/build.gradle');
-  var googleServicesSource1 = path.resolve(cordovaDirectory, './google-services.json');
-  var googleServicesSource2 = path.resolve(cordovaDirectory, '../', './google-services.json');
-  var googleServicesTarget = path.resolve(cordovaDirectory, './platforms/android/google-services.json');
+  const cordovaDirectory = path.resolve(context.opts.projectRoot);
+  const buildGradleSource = path.resolve(cordovaDirectory, './platforms/android/build.gradle');
+  const googleServicesSource1 = path.resolve(cordovaDirectory, './google-services.json');
+  const googleServicesSource2 = path.resolve(cordovaDirectory, '../', './google-services.json');
+  const googleServicesTarget = path.resolve(cordovaDirectory, './platforms/android/google-services.json');
 
   // copy google-services to root src directory
   if (filesystem.existsSync(googleServicesSource1)) {
@@ -54,27 +63,33 @@ module.exports = function (context) {
 
   // insert dependencies into gradle buildscript
   if (filesystem.existsSync(buildGradleSource)) {
-    var buildGradeFile = filesystem.readFileSync(buildGradleSource);
+    let content = filesystem.readFileSync(buildGradleSource);
 
     // insert google services as buildscript dependency
-    if (getLineIndex(buildGradeFile, 'com.google.gms:google-services:3.1.0') === -1) {
-      var index =  getLineIndex(buildGradeFile, 'com.android.tools.build:gradle');
-      var content = insertLineAt(buildGradeFile, index + 1, "\t\t\t\tclasspath 'com.google.gms:google-services:3.1.0'");
-
-      filesystem.writeFileSync(buildGradleSource, content);
+    if (getLineIndex(content, 'com.google.gms:google-services:3.1.0') === -1) {
+      content = insertLineAt(content,
+        getLineCount(content) + 1,
+        "\t\t\t\tclasspath 'com.google.gms:google-services:3.1.0'"
+      );
     }
 
     // insert google maven as allproject repository
-    if (getLineIndex(buildGradeFile, 'url "https://maven.google.com"') === -1) {
-      var index =  getLineIndex(buildGradeFile, 'allprojects');
-      var content = insertLineAt(buildGradeFile, index + 4, "\t\t\t\tmaven { url 'https://maven.google.com' }");
-
-      filesystem.writeFileSync(buildGradleSource, content);
+    if (getLineIndex(content, 'url "https://maven.google.com"') === -1) {
+      content = insertLineAt(content,
+        getLineIndex(content, 'allprojects') + 4,
+        "\t\t\t\tmaven { url 'https://maven.google.com' }"
+      );
     }
 
     // apply google services at bottom of file
-    if (getLineIndex(buildGradeFile, "apply plugin: 'com.google.gms.google-services'") === -1) {
-      filesystem.appendFileSync(buildGradleSource, "\napply plugin: 'com.google.gms.google-services'");
+    if (getLineIndex(content, "apply plugin: 'com.google.gms.google-services'") === -1) {
+      content = insertLineAt(content,
+        getLineIndex(content, 'allprojects'),
+        "\napply plugin: 'com.google.gms.google-services'"
+      );
     }
+
+    // write changes to gradle file
+    filesystem.writeFileSync(buildGradleSource, content);
   }
 };
