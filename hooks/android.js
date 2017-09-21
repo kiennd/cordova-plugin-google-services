@@ -68,13 +68,13 @@ module.exports = function (context) {
     // insert google services as buildscript dependency
     if (getLineIndex(content, 'com.google.gms:google-services:3.1.0') === -1) {
       content = insertLineAt(content,
-        getLineCount(content) + 1,
+        getLineIndex(content, 'com.android.tools.build') + 1,
         "\t\t\t\tclasspath 'com.google.gms:google-services:3.1.0'"
       );
     }
 
     // insert google maven as allproject repository
-    if (getLineIndex(content, 'url "https://maven.google.com"') === -1) {
+    if (getLineIndex(content, 'https://maven.google.com') === -1) {
       content = insertLineAt(content,
         getLineIndex(content, 'allprojects') + 4,
         "\t\t\t\tmaven { url 'https://maven.google.com' }"
@@ -84,7 +84,7 @@ module.exports = function (context) {
     // apply google services at bottom of file
     if (getLineIndex(content, "apply plugin: 'com.google.gms.google-services'") === -1) {
       content = insertLineAt(content,
-        getLineIndex(content, 'allprojects'),
+        getLineCount(content) - 1,
         "\napply plugin: 'com.google.gms.google-services'"
       );
     }
