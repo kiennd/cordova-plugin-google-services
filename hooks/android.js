@@ -55,15 +55,24 @@ module.exports = function (context) {
   // insert dependencies into gradle buildscript
   if (filesystem.existsSync(buildGradleSource)) {
     var buildGradeFile = filesystem.readFileSync(buildGradleSource);
-    var index =  getLineIndex(buildGradeFile, 'com.android.tools.build:gradle');
-    var content = insertLineAt(buildGradeFile, index + 1, "\t\t\t\tclasspath 'com.google.gms:google-services:3.1.0'");
 
-    // insert google-services as buildscript dependency
+    // insert google services as buildscript dependency
     if (getLineIndex(buildGradeFile, 'com.google.gms:google-services:3.1.0') === -1) {
+      var index =  getLineIndex(buildGradeFile, 'com.android.tools.build:gradle');
+      var content = insertLineAt(buildGradeFile, index + 1, "\t\t\t\tclasspath 'com.google.gms:google-services:3.1.0'");
+
       filesystem.writeFileSync(buildGradleSource, content);
     }
 
-    // apply google-services at bottom of file
+    // insert google maven as allproject repository
+    if (getLineIndex(buildGradeFile, 'url "https://maven.google.com"') === -1) {
+      var index =  getLineIndex(buildGradeFile, 'allprojects');
+      var content = insertLineAt(buildGradeFile, index + 4, "\t\t\t\tmaven { url 'https://maven.google.com' }");
+
+      filesystem.writeFileSync(buildGradleSource, content);
+    }
+
+    // apply google services at bottom of file
     if (getLineIndex(buildGradeFile, "apply plugin: 'com.google.gms.google-services'") === -1) {
       filesystem.appendFileSync(buildGradleSource, "\napply plugin: 'com.google.gms.google-services'");
     }
