@@ -66,10 +66,10 @@ module.exports = function (context) {
     let content = filesystem.readFileSync(buildGradleSource);
 
     // insert google services as buildscript dependency
-    if (getLineIndex(content, 'com.google.gms:google-services:3.1.0') === -1) {
+    if (getLineIndex(content, 'com.google.gms:google-services:3.1.1') === -1) {
       content = insertLineAt(content,
         getLineIndex(content, 'com.android.tools.build') + 1,
-        "\t\t\t\tclasspath 'com.google.gms:google-services:3.1.0'"
+        "\t\t\t\tclasspath 'com.google.gms:google-services:3.1.1'"
       );
     }
 
