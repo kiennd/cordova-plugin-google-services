@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-google-services",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Cordova plugin for Google Services.",
   "author": "Joshua McFarland",
   "license": "MIT",
