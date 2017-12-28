@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         id="cordova-plugin-google-services"
-        version="1.0.2">
+        version="1.0.3">
 
   <name>Google Services Plugin</name>
-  <description>A Cordova plugin for Google Services.</description>
+  <description>A simple Cordova plugin for Google Services.</description>
   <author>Jernung, LLC</author>
   <license>MIT</license>
   <keywords>cordova,google,services</keywords>
