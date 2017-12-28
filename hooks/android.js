@@ -52,13 +52,11 @@ module.exports = function (context) {
   const googleServicesSource2 = path.resolve(cordovaDirectory, '../', './google-services.json');
   const googleServicesTarget = path.resolve(cordovaDirectory, './platforms/android/google-services.json');
 
-  // copy google-services to root src directory
+  // copy google services to root src directory
   if (filesystem.existsSync(googleServicesSource1)) {
     filesystem.writeFileSync(googleServicesTarget, filesystem.readFileSync(googleServicesSource1));
   } else if (filesystem.existsSync(googleServicesSource2)) {
     filesystem.writeFileSync(googleServicesTarget, filesystem.readFileSync(googleServicesSource2));
-  } else {
-    filesystem.writeFileSync(googleServicesTarget, '{}');
   }
 
   // insert dependencies into gradle buildscript

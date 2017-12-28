@@ -15,15 +15,19 @@
 
   <platform name="android">
 
-    <hook type="after_prepare" src="hooks/android.js" />
-
     <config-file target="AndroidManifest.xml" parent="/manifest">
       <uses-permission android:name="android.permission.INTERNET" />
     </config-file>
 
+    <source-file src="src/android/google-services.json" target-dir="." />
+
+    <hook type="after_prepare" src="hooks/android.js" />
+
   </platform>
 
   <platform name="ios">
+
+    <resource-file src="src/ios/GoogleService-Info.plist" />
 
     <hook type="after_prepare" src="hooks/ios.js" />
 

@@ -14,12 +14,10 @@ module.exports = function (context) {
   // ensure resources directory exists
   filesystem.ensureDirSync(googleServicesTargetDirectory)
 
-  // copy google services to root src directory
+  // copy google services to root resources directory
   if (filesystem.existsSync(googleServicesSourceFile1)) {
     filesystem.copyFileSync(googleServicesSourceFile1, googleServicesTargetFile);
   } else if (filesystem.existsSync(googleServicesSourceFile2)) {
     filesystem.copyFileSync(googleServicesSourceFile2, googleServicesTargetFile);
-  } else {
-    filesystem.writeFileSync(googleServicesTargetFile, '{}');
   }
 };
