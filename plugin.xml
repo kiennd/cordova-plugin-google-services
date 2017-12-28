@@ -21,7 +21,7 @@
 
     <framework src="src/android/build.gradle" type="gradleReference" custom="true" />
 
-    <resource-file src="src/android/google-services.json" target-dir="google-services.json" />
+    <resource-file src="src/android/google-services.json" target="google-services.json" />
 
     <hook type="after_prepare" src="hooks/android.js" />
 
