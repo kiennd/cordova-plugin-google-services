@@ -14,7 +14,7 @@ module.exports = function (context) {
   // ensure resources directory exists
   filesystem.ensureDirSync(googleServicesTargetDirectory)
 
-  // copy google services to root resources directory
+  // find and copy google services to resources directory
   if (filesystem.existsSync(googleServicesSourceFile1)) {
     filesystem.copyFileSync(googleServicesSourceFile1, googleServicesTargetFile);
   } else if (filesystem.existsSync(googleServicesSourceFile2)) {

@@ -19,7 +19,9 @@
       <uses-permission android:name="android.permission.INTERNET" />
     </config-file>
 
-    <source-file src="src/android/google-services.json" target-dir="." />
+    <framework src="src/android/build.gradle" type="gradleReference" custom="true" />
+
+    <resource-file src="src/android/google-services.json" target-dir="google-services.json" />
 
     <hook type="after_prepare" src="hooks/android.js" />
 
