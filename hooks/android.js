@@ -1,12 +1,12 @@
-const filesystem = require('fs');
+const filesystem = require('fs-extra');
 const path = require('path');
 
 module.exports = function (context) {
   const cordovaDirectory = path.resolve(context.opts.projectRoot);
-  const googleServicesSource1 = path.resolve(cordovaDirectory, './google-services.json');
-  const googleServicesSource2 = path.resolve(cordovaDirectory, '../', './google-services.json');
-  const googleServicesTargetDirectory = path.resolve(cordovaDirectory, './platforms/android');
-  const googleServicesTarget = path.resolve(googleServicesTargetDirectory, './platforms/android/google-services.json');
+  const googleServicesSource1 = path.resolve(cordovaDirectory, 'google-services.json');
+  const googleServicesSource2 = path.resolve(cordovaDirectory, '../', 'google-services.json');
+  const googleServicesTargetDirectory = path.resolve(cordovaDirectory, 'platforms/android');
+  const googleServicesTarget = path.resolve(googleServicesTargetDirectory, 'platforms/android/google-services.json');
 
   // ensure root directory exists
   filesystem.ensureDirSync(googleServicesTargetDirectory)
