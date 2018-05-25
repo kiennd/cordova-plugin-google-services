@@ -22,8 +22,5 @@
     "platforms": [
       "android"
     ]
-  },
-  "dependencies": {
-    "fs-extra": "5.0.x"
   }
 }
