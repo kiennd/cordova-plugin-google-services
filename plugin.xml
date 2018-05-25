@@ -12,7 +12,6 @@
   <engines>
     <engine name="cordova" version=">=6.4.0" />
     <engine name="cordova-android" version=">=6.3.0" />
-    <engine name="cordova-ios" version=">=4.3.0" />
   </engines>
 
   <platform name="android">
@@ -29,12 +28,5 @@
 
   </platform>
 
-  <platform name="ios">
-
-    <resource-file src="src/ios/GoogleService-Info.plist" />
-
-    <hook type="after_prepare" src="hooks/ios.js" />
-
-  </platform>
 
 </plugin>
